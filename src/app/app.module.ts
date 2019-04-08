@@ -8,6 +8,12 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import {TabViewModule} from 'primeng/tabview';
+import {InputTextModule} from 'primeng/inputtext';
+import { SondageComponent } from './sondage/sondage.component';
+import {HttpClientModule} from '@angular/common/http';
+import { ParticipantSondageComponent } from './participant-sondage/participant-sondage.component';
+import { UtilisateurComponent } from './utilisateur/utilisateur.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,12 +21,18 @@ import {TabViewModule} from 'primeng/tabview';
     NavBarreComponent,
     HomeComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    SondageComponent,
+    ParticipantSondageComponent,
+    UtilisateurComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule ,
-    TabViewModule
+    TabViewModule,
+    InputTextModule,
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

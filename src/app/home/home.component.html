@@ -1,11 +1,74 @@
+<div>
 <p-tabView [activeIndex]="index">
   <p-tabPanel header="Créer un sondage">
-    Participer à un sondage
+    <div id="bloc2">
+      <div class="col-md-6 col-md-offset-3">
+        <h2>Créer Sondage</h2>
+        <form class=form-group  (ngSubmit)="saveSondage()" role="form">
+          <div class="form-group" ng-class="{ 'has-error': form.nom.$dirty && form.nom.$error.required }">
+            <label for="lienWeb">Lien sondage</label>
+            <input type="text" name="lienWeb" id="lienWeb" class="form-control" [(ngModel)]="sondage.lienWeb" required />
+            <span ng-show="form.lienWeb.$dirty && form.lienWeb.$error.required" class="help-block">required</span>
+          </div>
+          <div class="form-group" ng-class="{ 'has-error': form.prenom.$dirty && form.prenom.$error.required }">
+            <label for="mail">Mail Créateur</label>
+            <input type="email" name="mail" id="mail" class="form-control" [(ngModel)]="mail" required />
+            <span ng-show="form.mail.$dirty && form.mail.$error.required" class="help-block">required</span>
+          </div>
+          <div class="form-actions">
+            <button type="submit"  value="register" class="btn btn-primary">Créer</button>
+            <a href="#" class="btn btn-link">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+    <br>
   </p-tabPanel>
-  <p-tabPanel header="Liste sondages créés ">
-    Liste sondages créés
+  <p-tabPanel   header="Liste sondages créés " >
+    <div *ngIf="sondagesCree">
+    <table class="table">
+      <thead class="thead-light">
+      <tr>
+        <th scope="col">Numéro Sondage</th>
+        <th scope="col">Lien Web</th>
+        <th scope="col"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let s of sondagesCree">
+        <td>{{s.idSondage}}</td>
+        <td>{{s.lienWeb}}</td>
+        <td><a [routerLink]="['/sondages/allParticipants/', s.idSondage ]" class="btn btn-primary a-btn-slide-text">
+          <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+          <span><strong>voir les participants</strong></span>
+        </a></td>
+      </tr>
+      </tbody>
+    </table>
+    </div>
   </p-tabPanel>
-  <p-tabPanel header="Participer à un sondage">
-    Participer à un sondage
+  <p-tabPanel header="Répondre à un sondage">
+    <div *ngIf="sondageEncours">
+      <table class="table">
+        <thead class="thead-light">
+        <tr>
+          <th scope="col">Numéro Sondage</th>
+          <th scope="col">Lien Web</th>
+          <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let s of sondageEncours">
+          <td>{{s.idSondage}}</td>
+          <td>{{s.lienWeb}}</td>
+          <td><a [routerLink]="['/sondages/allParticipants/', s.idSondage ]" class="btn btn-primary a-btn-slide-text">
+            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+            <span><strong> Répondre </strong></span>
+          </a></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
   </p-tabPanel>
 </p-tabView>
+</div>

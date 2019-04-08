@@ -1,0 +1,21 @@
+
+
+  <div *ngIf="sondages">
+  <table>
+    <thead>
+     <tr>
+       <th>idSondage </th>
+       <th>	lienWeb </th>
+     </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let s of sondages">
+      <td>{{s.idSondage}}</td>
+      <td>{{s.lienWeb}}</td>
+      <td><a [routerLink]="['/sondages/allParticipants/', s.idSondage ]">voir</a></td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>
+

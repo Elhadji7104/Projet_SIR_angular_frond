@@ -1,0 +1,23 @@
+<div *ngIf="participants">
+  <p>{{name}}</p>
+  <table>
+    <thead>
+    <tr>
+      <th>mail </th>
+      <th>	idReponse </th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody *ngFor="let p of participants[0].listDeReponses">
+    <tr>
+      <td>{{p.mail}}</td>
+      <td>{{p.idReponse}}</td>
+      <td><a href="/sondages">voir</a></td>
+    </tr>
+    </tbody>
+  </table>
+  <li *ngFor="let hero of participants">
+    <span class="badge">{{hero.$key}}</span> {{hero.mail}}
+  </li>
+
+</div>
