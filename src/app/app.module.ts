@@ -13,8 +13,26 @@ import { SondageComponent } from './sondage/sondage.component';
 import {HttpClientModule} from '@angular/common/http';
 import { ParticipantSondageComponent } from './participant-sondage/participant-sondage.component';
 import { UtilisateurComponent } from './utilisateur/utilisateur.component';
-import { FormsModule } from '@angular/forms';
-
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatDatepickerModule, MatNativeDateModule} from '@angular/material';
+// materiel
+import {MatButtonModule} from '@angular/material';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material';
+import {MatStepperModule} from '@angular/material';
+import {NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
+import {MatTableModule} from '@angular/material';
+import {CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import {ButtonModule} from 'primeng/button';
+import {TableModule} from 'primeng/table';
+import { DialogOverviewExampleDialogComponent } from './dialog-overview-example-dialog/dialog-overview-example-dialog.component';
+import {MatDialogModule} from '@angular/material';
+import {
+  PasswordModule,
+  PanelModule,
+  DialogModule
+} from 'primeng/primeng';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +42,11 @@ import { FormsModule } from '@angular/forms';
     RegisterComponent,
     SondageComponent,
     ParticipantSondageComponent,
-    UtilisateurComponent
+    UtilisateurComponent,
+    DialogOverviewExampleDialogComponent,
+  ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
   ],
   imports: [
     BrowserModule,
@@ -32,9 +54,31 @@ import { FormsModule } from '@angular/forms';
     TabViewModule,
     InputTextModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatStepperModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    MatStepperModule,
+    MatButtonModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    NgbPaginationModule,
+    NgbAlertModule,
+    MatTableModule,
+    ButtonModule,
+    TableModule,
+    MatDialogModule,
+    PasswordModule,
+    PanelModule,
+    DialogModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {
+
+}

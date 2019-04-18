@@ -1,25 +1,114 @@
 <div>
 <p-tabView [activeIndex]="index">
   <p-tabPanel header="Créer un sondage">
-    <div id="bloc2">
-      <div class="col-md-6 col-md-offset-3">
+    <div id="corps">
+      <div class="col-md-8 col-md-offset-2">
         <h2>Créer Sondage</h2>
-        <form class=form-group  (ngSubmit)="saveSondage()" role="form">
-          <div class="form-group" ng-class="{ 'has-error': form.nom.$dirty && form.nom.$error.required }">
-            <label for="lienWeb">Lien sondage</label>
-            <input type="text" name="lienWeb" id="lienWeb" class="form-control" [(ngModel)]="sondage.lienWeb" required />
-            <span ng-show="form.lienWeb.$dirty && form.lienWeb.$error.required" class="help-block">required</span>
-          </div>
-          <div class="form-group" ng-class="{ 'has-error': form.prenom.$dirty && form.prenom.$error.required }">
-            <label for="mail">Mail Créateur</label>
-            <input type="email" name="mail" id="mail" class="form-control" [(ngModel)]="mail" required />
-            <span ng-show="form.mail.$dirty && form.mail.$error.required" class="help-block">required</span>
-          </div>
-          <div class="form-actions">
-            <button type="submit"  value="register" class="btn btn-primary">Créer</button>
-            <a href="#" class="btn btn-link">Cancel</a>
-          </div>
-        </form>
+        <mat-horizontal-stepper labelPosition="bottom" #stepper>
+          <mat-step [stepControl]="firstFormGroup">
+            <form [formGroup]="firstFormGroup">
+              <ng-template matStepLabel>Lien web</ng-template>
+              <mat-form-field>
+                <input matInput formControlName="lienWeb" [(ngModel)]="sondage.lienWeb" formControlName="firstCtrl" required >
+                <input matInput hidden formControlName="login" [(ngModel)]="login" value="{{login}}" >
+              </mat-form-field>
+              <div>
+                <button mat-button (click)="saveSondage(this.login, this.sondage.lienWeb)" matStepperNext>Suivant </button>
+              </div>
+            </form>
+          </mat-step>
+          <ng-template matStepLabel>Définissez les dates</ng-template>
+          <mat-step [stepControl]="secondFormGroup">
+            <form [formGroup]="secondFormGroup">
+              <!-- Pour la date du sondage -->
+            <mat-form-field>
+              <input matInput type="date" formControlName="dateSondage"  [(ngModel)]="this.dateproposee.dateSondage"   placeholder="Date"
+                    formControlName="secondCtrl">
+
+            </mat-form-field>
+              <mat-form-field>
+              <input matInput   placeholder="Heure de début" type="time" formControlName="secondCtrl" [(ngModel)]="this.dateproposee.heureDebut">
+
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput  placeholder="Heure de fin" type="time" formControlName="secondCtrl" [(ngModel)]="this.dateproposee.heureFin">
+              <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+
+            </mat-form-field>
+              <input type="button" value="Ajouter" (click)="ajouterDate(this.dateproposee)">
+            </form>
+
+            <hr>
+            <div *ngIf="listeDateProposees">
+              <table class="table">
+                <thead class="thead-light">
+                <tr>
+                  <th scope="col">Date</th>
+                  <th scope="col">Heure début</th>
+                  <th scope="col">Heure fin</th>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let d of listeDateProposees">
+                  <td>{{d.dateSondage}}</td>
+                  <td>{{d.heureDebut}}</td>
+                  <td>{{d.heureFin}}</td>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
+                </tr>
+                </tbody>
+              </table>
+              <hr>
+            </div>
+            <div>
+                <button mat-button matStepperPrevious>Précédent</button>
+                <button mat-button matStepperNext>Suivant</button>
+            </div>
+          </mat-step>
+          <mat-step>
+            <ng-template matStepLabel>Synthése</ng-template>
+            <ul>
+              <li>
+                <p>{{login}}</p>
+              </li>
+              <li>
+                {{sondage.lienWeb}}
+              </li>
+            </ul>
+            <hr>
+            <div *ngIf="listeDateProposees">
+              <table class="table">
+                <thead class="thead-light">
+                <tr>
+                  <th scope="col">Date</th>
+                  <th scope="col">Heure début</th>
+                  <th scope="col">Heure fin</th>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let d of listeDateProposees">
+                  <td>{{d.dateSondage}}</td>
+                  <td>{{d.heureDebut}}</td>
+                  <td>{{d.heureFin}}</td>
+                  <td><a class="">dd</a></td>
+                  <td><a class="">sup</a> </td>
+                </tr>
+                </tbody>
+              </table>
+              <hr>
+            </div>
+            <div>
+              <button mat-button matStepperPrevious>Précédent</button>
+              <button mat-button (click)="stepper.reset()">Reset</button>
+              <button mat-button >Terminer</button>
+            </div>
+          </mat-step>
+        </mat-horizontal-stepper>
       </div>
     </div>
     <br>
@@ -61,14 +150,72 @@
         <tr *ngFor="let s of sondageEncours">
           <td>{{s.idSondage}}</td>
           <td>{{s.lienWeb}}</td>
-          <td><a [routerLink]="['/sondages/allParticipants/', s.idSondage ]" class="btn btn-primary a-btn-slide-text">
-            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-            <span><strong> Répondre </strong></span>
-          </a></td>
+          <td> <button class="btn btn-primary a-btn-slide-text" (click)="getListDateProposee2(s.idSondage)" type="text"  [routerLink]="['/sondages/participer/', s.idSondage ]" class="btn btn-primary a-btn-slide-text" (click)="display = !display" pButton icon="fa-external-link-square">Répondre</button>
+          </td>
         </tr>
         </tbody>
       </table>
     </div>
+    <p-dialog widgetVar="dlgDettaglioPremio" modal="true" [style]="{'color':'black','backgroundColor': 'White' }"
+              showEffect="explode" position="center center" width="600" height="500" resizable="false"
+              appendToBody="true" header="Dates Proposée" [(visible)]="display">
+      <button  (click)="setSelectedItem()">set selected item</button>
+      <button (click)="removeUnvalidItem()">Remove Unvalid Item</button>
+      <br/>
+      <!--<p-table  [columns]="cols" [value]="listeDateProposees" [paginator]="true" [rows]="10" [scrollable]="true"
+                [(selection)]="dtSelectedRows" >
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="width: 35px">
+              <p-tableHeaderCheckbox [value]="rowData"></p-tableHeaderCheckbox>
+            </th>
+            <th *ngFor="let col of cols">{{col.header}}</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-col let-rowIndex>
+          <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex">
+            <td>
+              <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+            </td>
+            <td *ngFor="let col of cols">{{rowData[col.field]}}<td>
+          </tr>
+        </ng-template>
+
+        <button (click)="close()">Terminer</button>
+      </p-table> -->
+      <h3>Multiple Row Selection</h3>
+      <p-table [columns]="cols" [value]="listeDateProposees" selectionMode="multiple" [paginator]="true" [rows]="10" [(selection)]="selectedCars1">
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th style="width: 35px">
+              <p-tableHeaderCheckbox [value]="rowData"></p-tableHeaderCheckbox>
+            </th>
+            <th *ngFor="let col of cols">
+              {{col.header}}
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+          <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex">
+            <td>
+              <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+            </td>
+            <td *ngFor="let col of cols">
+              {{rowData[col.field]}}
+            </td>
+            <td><input type="checkbox" [checked]="test" (change)="addFieldValue(rowData)" test="true"></td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+         <!-- <ul>
+            <li *ngFor="let car of selectedCars1" style="text-align: left">
+              {{car.vin + ' - ' + car.brand + ' - ' + car.year + ' - ' + car.color}}
+            </li>
+          </ul> -->
+          <button (click)="close()">Terminer</button>
+        </ng-template>
+      </p-table>
+    </p-dialog>
   </p-tabPanel>
 </p-tabView>
 </div>

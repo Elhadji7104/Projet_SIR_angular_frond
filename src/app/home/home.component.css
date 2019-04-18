@@ -1,28 +1,15 @@
-#bloc1
-{
-  align-content: center;
-  margin-right: auto;
-  margin-left: auto;
-  padding-left: 100px;
+#corps{
+  height: 100px;
 }
-#body1{
-  padding-left: 100px;
-  padding-right: 100px;
+.example-container {
+  display: flex;
+  flex-direction: column;
+  max-height: 500px;
+  min-width: 300px;
 }
-#bloc2{
-  padding-left: 100px;
-  padding-right: 100px;
+
+.mat-table {
+  overflow: auto;
+  max-height: 500px;
 }
-a.btn:hover {
-  -webkit-transform: scale(1.1);
-  -moz-transform: scale(1.1);
-  -o-transform: scale(1.1);
-}
-a.btn {
-  -webkit-transform: scale(0.8);
-  -moz-transform: scale(0.8);
-  -o-transform: scale(0.8);
-  -webkit-transition-duration: 0.5s;
-  -moz-transition-duration: 0.5s;
-  -o-transition-duration: 0.5s;
-}
+

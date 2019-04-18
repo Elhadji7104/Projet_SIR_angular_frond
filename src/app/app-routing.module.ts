@@ -14,6 +14,7 @@ const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'sondages', component: SondageComponent},
   {path: 'sondages/allParticipants/:id', component: ParticipantSondageComponent},
+  {path: 'sondages/participer/:id', component: HomeComponent},
   {path: 'sondages/allsondageByUse/:login', component: HomeComponent}
 ];
 

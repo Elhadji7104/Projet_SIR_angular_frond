@@ -15,19 +15,29 @@ export class SondageService {
   };
   getAllSondage() {
     // return this.http.get(this.url);
-    return this.http.get(this.url + '/allsondage');
+    return this.http.get(this.url + '/allsondage', this.options);
   }
   getAllParticipantsSondage(id: number) {
     return this.http.get(this.url + '/allParticipants/' + id);
   }
-
+  getDateProposses(idSondage: any) {
+    return this.http.get(this.url + '/allDateProposee/' + idSondage  , this.options);
+  }
   create(mail: any , sondage: any) {
-    //let createur =
+    // let createur =
     return this.http.post(this.url + '/add/' + mail  , sondage , this.options);
     console.log('data' + JSON.stringify(sondage));
   }
 
   getAllSondageByUser(mail: any) {
     return this.http.get(this.url + '/allsondageByUse/' + mail);
+  }
+
+  addDateproposee(idSondage: any, dateproposee: any) {
+    return this.http.post(this.url + '/definirDateSondate/' + idSondage, dateproposee , this.options);
+  }
+
+  getidSondage() {
+    return this.http.get(this.url + '/getIdSondage');
   }
 }
