@@ -33,6 +33,7 @@ import {
   PanelModule,
   DialogModule
 } from 'primeng/primeng';
+import {RouterModule} from '@angular/router';
 @NgModule({
   declarations: [
     AppComponent,
@@ -74,7 +75,20 @@ import {
     MatDialogModule,
     PasswordModule,
     PanelModule,
-    DialogModule
+    DialogModule,
+    RouterModule.forRoot([
+      {
+        path: 'login',
+        component: LoginComponent
+      },
+      {
+        path: 'register',
+        component: RegisterComponent},
+      {
+        path: 'home',
+        component: HomeComponent
+      },
+    ])
   ],
   providers: [],
   bootstrap: [AppComponent],

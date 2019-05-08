@@ -10,6 +10,9 @@ import {DatepickerViewModel} from '@ng-bootstrap/ng-bootstrap/datepicker/datepic
 import {templateJitUrl} from '@angular/compiler';
 import {MatTableDataSource} from '@angular/material';
 import {SelectionModel} from '@angular/cdk/typings/esm5/collections';
+import {ngbFocusTrap} from '@ng-bootstrap/ng-bootstrap/util/focus-trap';
+import {forEach} from '@angular/router/src/utils/collection';
+import {of} from 'rxjs';
 export interface DialogData {
   animal: string;
   name: string;
@@ -84,6 +87,7 @@ export class HomeComponent implements OnInit {
   public dtSelectedRows: any[];
   private listeDateProposees2: any;
   private selectedDate: [];
+  private dataParticipant: any;
   // data = this.listeDateProposees2;
   setSelectedItem() {
     this.dtSelectedRows = [this.data[0]];
@@ -152,6 +156,9 @@ export class HomeComponent implements OnInit {
       console.log('data' + JSON.stringify(dataDate));
     });
   }
+  close() {
+    console.log('calling on close');
+  }
   // ajjouter la date
   ajouterDate(dateproposee: any) {
     this.idSondage = this.sondageService.getidSondage().subscribe(data => {
@@ -171,7 +178,14 @@ export class HomeComponent implements OnInit {
     console.log('newtab', this.fieldArray);
     this.newAttribute = {};
   }
-
+  sauveParticipation() {
+   for(let i = 0; i < this.fieldArray.length; i++) {
+      this.sondageService.addParticipant(this.login, this.fieldArray).subscribe(data => {
+        this.dataParticipant = data;
+        console.log('dataparticipant', JSON.stringify(this.dataParticipant));
+      });
+    }
+  }
   deleteFieldValue(index) {
     this.fieldArray.splice(index, 1);
   }
@@ -193,9 +207,6 @@ export class DialogOverviewExampleDialog {
   constructor(
     public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
-    close() {
-    console.log('calling on close');
-    }
     onNoClick(): void {
     this.dialogRef.close();
     }

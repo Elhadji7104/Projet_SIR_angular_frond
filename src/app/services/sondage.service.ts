@@ -40,4 +40,8 @@ export class SondageService {
   getidSondage() {
     return this.http.get(this.url + '/getIdSondage');
   }
+
+  addParticipant(login: any, idsondage: any) {
+    return this.http.post(this.url + '/repondreAUnSondage/' + idsondage, login , this.options );
+  }
 }
