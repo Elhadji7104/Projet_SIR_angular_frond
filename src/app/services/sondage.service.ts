@@ -41,7 +41,8 @@ export class SondageService {
     return this.http.get(this.url + '/getIdSondage');
   }
 
-  addParticipant(login: any, idsondage: any) {
-    return this.http.post(this.url + '/repondreAUnSondage/' + idsondage, login , this.options );
+  addParticipant(idsondage: any, idDate: any, login: any ) {
+    return this.http.post(this.url + '/repondreAUnSondage/' + idsondage + '/' + idDate, login , this.options );
+    console.log('dataadded' + JSON.stringify(idsondage));
   }
 }

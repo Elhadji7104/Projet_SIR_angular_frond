@@ -136,8 +136,8 @@
     </table>
     </div>
   </p-tabPanel>
-  <p-tabPanel header="Répondre à un sondage">
-    <div *ngIf="sondageEncours">
+  <p-tabPanel  header="Répondre à un sondage">
+    <div *ngIf="sondageEncours" >
       <table class="table">
         <thead class="thead-light">
         <tr>
@@ -150,7 +150,7 @@
         <tr *ngFor="let s of sondageEncours">
           <td>{{s.idSondage}}</td>
           <td>{{s.lienWeb}}</td>
-          <td> <button class="btn btn-primary a-btn-slide-text" (click)="getListDateProposee2(s.idSondage)" type="text"  [routerLink]="['/sondages/participer/', s.idSondage ]" class="btn btn-primary a-btn-slide-text" (click)="display = !display" pButton icon="fa-external-link-square">Répondre</button>
+          <td> <button class="btn btn-primary a-btn-slide-text" (click)="getListDateProposee2(s.idSondage)" type="text"  [routerLink]="['/sondages/participer/', s.idSondage ]"  class="btn btn-primary a-btn-slide-text" (click)="display = !display" pButton icon="fa-external-link-square">Répondre</button>
           </td>
         </tr>
         </tbody>
@@ -158,32 +158,9 @@
     </div>
     <p-dialog widgetVar="dlgDettaglioPremio" modal="true" [style]="{'color':'black','backgroundColor': 'White' }"
               showEffect="explode" position="center center" width="600" height="500" resizable="false"
-              appendToBody="true" header="Dates Proposée" [(visible)]="display">
-      <button  (click)="setSelectedItem()">set selected item</button>
-      <button (click)="removeUnvalidItem()">Remove Unvalid Item</button>
+              appendToBody="true" header="Dates Proposées"   [(visible)]="display">
       <br/>
-      <!--<p-table  [columns]="cols" [value]="listeDateProposees" [paginator]="true" [rows]="10" [scrollable]="true"
-                [(selection)]="dtSelectedRows" >
-        <ng-template pTemplate="header">
-          <tr>
-            <th style="width: 35px">
-              <p-tableHeaderCheckbox [value]="rowData"></p-tableHeaderCheckbox>
-            </th>
-            <th *ngFor="let col of cols">{{col.header}}</th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowData let-col let-rowIndex>
-          <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex">
-            <td>
-              <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
-            </td>
-            <td *ngFor="let col of cols">{{rowData[col.field]}}<td>
-          </tr>
-        </ng-template>
-
-        <button (click)="close()">Terminer</button>
-      </p-table> -->
-      <h3>Multiple Row Selection</h3>
+      <h3>Choisissez les horaires</h3>
       <p-table [columns]="cols" [value]="listeDateProposees" selectionMode="multiple" [paginator]="true" [rows]="10" [(selection)]="selectedCars1">
         <ng-template pTemplate="header" let-columns>
           <tr>
@@ -202,8 +179,9 @@
             </td>
             <td *ngFor="let col of cols">
               {{rowData[col.field]}}
+              <input type="checkbox"   (change)="addFieldValue(rowData[col.idDate])">
             </td>
-            <td><input type="checkbox" [checked]="test" (change)="addFieldValue(rowData)" test="true"></td>
+            <td></td>
           </tr>
         </ng-template>
         <ng-template pTemplate="summary">
@@ -212,7 +190,9 @@
               {{car.vin + ' - ' + car.brand + ' - ' + car.year + ' - ' + car.color}}
             </li>
           </ul> -->
-          <button (click)="close()">Terminer</button>
+          <button (click)="sauveParticipation()" >Terminer</button>
+
+          <button (click)="close()" >Quitter</button>
         </ng-template>
       </p-table>
     </p-dialog>

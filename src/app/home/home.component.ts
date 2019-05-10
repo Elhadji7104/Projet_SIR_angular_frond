@@ -13,6 +13,7 @@ import {SelectionModel} from '@angular/cdk/typings/esm5/collections';
 import {ngbFocusTrap} from '@ng-bootstrap/ng-bootstrap/util/focus-trap';
 import {forEach} from '@angular/router/src/utils/collection';
 import {of} from 'rxjs';
+import {SelectItem} from 'primeng/api';
 export interface DialogData {
   animal: string;
   name: string;
@@ -36,10 +37,7 @@ export class HomeComponent implements OnInit {
   serializedDateTime = new FormControl((new Date().getTime() ).toString());*/
   index = 0;
   user = {
-    nom: '',
-    prenom: '',
     mail: '',
-    mdp: '',
   };
   ajouterDateok = 0;
   login;
@@ -60,16 +58,15 @@ export class HomeComponent implements OnInit {
   animal: string;
   name: string;
   cols = [
-    { field: 'dateSondage', header: 'date Sondage' },
-    { field: 'heureDebut', header: 'Heure début' },
-    { field: 'heureFin', header: 'Heure Fin' },
+    { idDate: 'idDate' , field: 'dateSondage', header: 'date Sondage' },
+    { idDate: 'idDate' , field: 'heureDebut', header: 'Heure début' },
+    { idDate: 'idDate' , field: 'heureFin', header: 'Heure Fin' },
   ];
 
-  private fieldArray: Array<any> = [];
+ // private fieldArray: Array<any> = [];
+  private fieldArray: SelectItem[] = [];
+
   private newAttribute: any = {};
-
-
-
   selectedCar1: any;
 
   data = this.listeDateProposees;
@@ -88,6 +85,9 @@ export class HomeComponent implements OnInit {
   private listeDateProposees2: any;
   private selectedDate: [];
   private dataParticipant: any;
+  rowData: any;
+  test: false;
+  private idSondageActuel: any;
   // data = this.listeDateProposees2;
   setSelectedItem() {
     this.dtSelectedRows = [this.data[0]];
@@ -116,6 +116,7 @@ export class HomeComponent implements OnInit {
   }
   ngOnInit() {
     this.login = 'fallgora.egf@gmail.com';
+    this.user.mail = this.login;
    // this.idSondage = 1;
     this.sondageService.getAllSondageByUser(this.login).subscribe(data => {
       this.sondagesCree = data;
@@ -144,6 +145,9 @@ export class HomeComponent implements OnInit {
      console.log('data' , JSON.stringify(data));
     });
   }
+  getAllsondage() {
+
+  }
   getlisteSondagebyUser(mail: any) {
     this.sondageService.getAllSondageByUser(mail).subscribe(data => {
       this.sondagesCree = data;
@@ -156,10 +160,8 @@ export class HomeComponent implements OnInit {
       console.log('data' + JSON.stringify(dataDate));
     });
   }
-  close() {
-    console.log('calling on close');
-  }
-  // ajjouter la date
+
+  // ajouter la date
   ajouterDate(dateproposee: any) {
     this.idSondage = this.sondageService.getidSondage().subscribe(data => {
       this.idSondage = data;
@@ -179,18 +181,19 @@ export class HomeComponent implements OnInit {
     this.newAttribute = {};
   }
   sauveParticipation() {
-   for(let i = 0; i < this.fieldArray.length; i++) {
-      this.sondageService.addParticipant(this.login, this.fieldArray).subscribe(data => {
-        this.dataParticipant = data;
-        console.log('dataparticipant', JSON.stringify(this.dataParticipant));
-      });
-    }
+      for (const value of this.fieldArray) {
+        this.sondageService.addParticipant(this.idSondageActuel , value , this.user ).subscribe(data => {
+          this.dataParticipant = data;
+          console.log('dataparticipant', JSON.stringify(this.dataParticipant));
+        });
+      }
   }
   deleteFieldValue(index) {
     this.fieldArray.splice(index, 1);
   }
-  getListDateProposee2(idSondage: {}) {
+  getListDateProposee2(idSondage: any) {
     // this.data = this.getListDateProposee(idSondage);
+    this.idSondageActuel = idSondage ;
     console.log('d', JSON.stringify(this.getListDateProposee(idSondage)));
   }
 }

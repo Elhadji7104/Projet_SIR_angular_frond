@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {SondageService} from '../services/sondage.service';
+import {UtilisateurService} from '../services/utilisateur.service';
+
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -7,12 +12,34 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  loading = false;
+  submitted = false;
+  returnUrl: string;
 
+  user = {
+    mail: '',
+    mdp: '',
+  };
+  userLogin = {
+    mail: '',
+    mdp: '',
+  };
+  constructor(private router: ActivatedRoute, private utilisateurService: UtilisateurService) { }
   ngOnInit() {
   }
-  loginUser(event: any) {
-    console.log(event);
+  loginUser() {
+    this.utilisateurService.login(this.user)
+      .pipe(first())
+      .subscribe(
+        data => {
+          this.userLogin = this.user;
+          console.log('user', JSON.stringify(this.userLogin)) ;
+          // this.router.navigate([this.returnUrl]);
+        },
+        error => {
+         // this.alertService.error(error);
+          this.loading = false;
+        });
   }
 
 }

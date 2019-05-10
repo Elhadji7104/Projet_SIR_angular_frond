@@ -33,7 +33,9 @@ export class UtilisateurService {
     return this.http.post(this.url + '/add', user , this.options);
     console.log('data' + JSON.stringify(user));
   }
-
+  login(user: any) {
+    return this.http.post(this.url + '/login', user , this.options);
+  }
   update(user) {
     return this.http.put(this.url, user, { observe: 'response' });
   }
