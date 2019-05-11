@@ -1,6 +1,6 @@
 <router-outlet></router-outlet>
 <app-nav-barre></app-nav-barre>
-<div style="text-align:center">
+<div *ngIf="!this.router" style="text-align:center">
   <h1>
     BIENVENUE
   </h1>

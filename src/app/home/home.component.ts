@@ -5,14 +5,6 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { FormControl } from '@angular/forms';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import DateTimeFormat = Intl.DateTimeFormat;
-import {DatepickerViewModel} from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker-view-model';
-import {templateJitUrl} from '@angular/compiler';
-import {MatTableDataSource} from '@angular/material';
-import {SelectionModel} from '@angular/cdk/typings/esm5/collections';
-import {ngbFocusTrap} from '@ng-bootstrap/ng-bootstrap/util/focus-trap';
-import {forEach} from '@angular/router/src/utils/collection';
-import {of} from 'rxjs';
 import {SelectItem} from 'primeng/api';
 import {Router} from '@angular/router';
 export interface DialogData {
