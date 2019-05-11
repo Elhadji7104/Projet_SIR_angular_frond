@@ -9,7 +9,7 @@ import {SondageService} from '../services/sondage.service';
   styleUrls: ['./participant-sondage.component.css']
 })
 export class ParticipantSondageComponent implements OnInit {
-
+  test ;
   participants;
   constructor(private router: ActivatedRoute, private sondageService: SondageService) {
     let id: string;
@@ -22,6 +22,7 @@ export class ParticipantSondageComponent implements OnInit {
   }
 
   ngOnInit() {
-    //return this.participants;
+    // return this.participants;
+    this.test = 0;
   }
 }

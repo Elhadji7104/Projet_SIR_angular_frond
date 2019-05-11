@@ -111,7 +111,7 @@ export class HomeComponent implements OnInit {
     this.user.mail = login ;
     console.log('userLogin' + JSON.stringify(this.user));
    // this.idSondage = 1;
-    this.sondageService.getAllSondageByUser(this.login).subscribe(data => {
+    this.sondageService.getAllSondageByUser(this.user.mail).subscribe(data => {
       this.sondagesCree = data;
       // console.log('data' + JSON.stringify(data));
     });
@@ -132,7 +132,7 @@ export class HomeComponent implements OnInit {
     });
   }
   saveSondage(mail: any , sondage: any) {
-     this.sondageService.create(this.login, this.sondage).subscribe(data => {
+     this.sondageService.create(this.user.mail, this.sondage).subscribe(data => {
      this.sondagePost = data;
      console.log(this.sondage);
      console.log('data' , JSON.stringify(data));

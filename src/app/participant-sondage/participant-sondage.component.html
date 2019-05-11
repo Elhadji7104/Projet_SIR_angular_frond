@@ -1,23 +1,19 @@
-<div *ngIf="participants">
-  <p>{{name}}</p>
+<div *ngIf="participants" class="center-div">
+<h3>Liste des réponses </h3>
   <table style="align-content: center">
     <thead>
     <tr>
       <th>mail </th>
-      <th>	idReponse </th>
       <th></th>
     </tr>
     </thead>
     <tbody *ngFor="let p of participants[0].listDeReponses">
     <tr>
-      <td>{{p.mail}}</td>
-      <td>{{p.idReponse}}</td>
-      <td><a href="/sondages">voir</a></td>
+      <td>{{p.mail }}
+      </td>
     </tr>
     </tbody>
   </table>
-  <li *ngFor="let hero of participants">
-    <span class="badge">{{hero.$key}}</span> {{hero.mail}}
-  </li>
-
+  <h6>Nombre de Réponse : {{participants[0].length.value}} </h6>
+  <button value="Valider le sondage"></button>
 </div>
