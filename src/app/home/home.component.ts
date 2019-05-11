@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {SondageService} from '../services/sondage.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Route} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { FormControl } from '@angular/forms';
@@ -14,6 +14,7 @@ import {ngbFocusTrap} from '@ng-bootstrap/ng-bootstrap/util/focus-trap';
 import {forEach} from '@angular/router/src/utils/collection';
 import {of} from 'rxjs';
 import {SelectItem} from 'primeng/api';
+import {Router} from '@angular/router';
 export interface DialogData {
   animal: string;
   name: string;
@@ -70,17 +71,7 @@ export class HomeComponent implements OnInit {
   selectedCar1: any;
 
   data = this.listeDateProposees;
-  /*data = [ { dateSondage: '12-22-1222' ,
-             Heuredebut: '12:12' ,
-             HeureFin: '13:12' ,
-  }, { dateSondage: '12-22-1222' ,
-      Heuredebut: '12:12' ,
-      HeureFin: '13:13' ,
-  }, { dateSondage: '12-22-1222' ,
-       Heuredebut: '12:12' ,
-       HeureFin: '14:12' ,
-  }];*/
-  // data = this.listeDateProposees;
+
   public dtSelectedRows: any[];
   private listeDateProposees2: any;
   private selectedDate: [];
@@ -99,7 +90,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  constructor(private router: ActivatedRoute, private sondageService: SondageService,
+  constructor(private router: ActivatedRoute, private route: Router, private sondageService: SondageService,
               private formBuilder: FormBuilder,
               private dialog: MatDialog ) { }
   openDialog(): void {
@@ -115,12 +106,14 @@ export class HomeComponent implements OnInit {
     });
   }
   ngOnInit() {
-    this.login = 'fallgora.egf@gmail.com';
-    this.user.mail = this.login;
+    // this.login = 'fallgora.egf@gmail.com';
+    const login = this.router.snapshot.paramMap.get('userLogin');
+    this.user.mail = login ;
+    console.log('userLogin' + JSON.stringify(this.user));
    // this.idSondage = 1;
     this.sondageService.getAllSondageByUser(this.login).subscribe(data => {
       this.sondagesCree = data;
-      console.log('data' + JSON.stringify(data));
+      // console.log('data' + JSON.stringify(data));
     });
     this.sondageService.getAllSondage().subscribe(data => {
       this.sondageEncours = data;
@@ -187,9 +180,15 @@ export class HomeComponent implements OnInit {
           console.log('dataparticipant', JSON.stringify(this.dataParticipant));
         });
       }
+      // const id = this.router.snapshot.paramMap.get('id');
+      this.route.navigate(['home']);
   }
-  deleteFieldValue(index) {
-    this.fieldArray.splice(index, 1);
+  deconnexion() {
+    this.route.navigate(['login']);
+  }
+  closePannel() {
+    // const id = this.router.snapshot.paramMap.get('id');
+    this.route.navigate(['home']);
   }
   getListDateProposee2(idSondage: any) {
     // this.data = this.getListDateProposee(idSondage);

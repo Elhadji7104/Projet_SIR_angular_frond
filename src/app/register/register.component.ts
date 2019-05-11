@@ -18,7 +18,7 @@ export class RegisterComponent implements OnInit {
     mail: '',
     mdp: '',
   };
-  constructor(private router: ActivatedRoute, public url: HttpClient, private utilisateurService: UtilisateurService ) {}
+  constructor(private router: Router , public url: HttpClient, private utilisateurService: UtilisateurService ) {}
   public postData;
 
   ngOnInit() {}
@@ -37,7 +37,8 @@ export class RegisterComponent implements OnInit {
     return this.utilisateurService.create(this.user).subscribe((data) => {
         this.postData = data;
         console.log('data' + JSON.stringify(data));
-      });
+        this.router.navigate(['login']);
+    });
   }
   /*
   public adduser() {

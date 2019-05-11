@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {SondageService} from '../services/sondage.service';
 import {UtilisateurService} from '../services/utilisateur.service';
-
+import {Router} from '@angular/router';
+import {MatDialog} from '@angular/material'
 import { first } from 'rxjs/operators';
 
 @Component({
@@ -24,7 +25,7 @@ export class LoginComponent implements OnInit {
     mail: '',
     mdp: '',
   };
-  constructor(private router: ActivatedRoute, private utilisateurService: UtilisateurService) { }
+  constructor(private router: Router , private utilisateurService: UtilisateurService) { }
   ngOnInit() {
   }
   loginUser() {
@@ -34,6 +35,7 @@ export class LoginComponent implements OnInit {
         data => {
           this.userLogin = this.user;
           console.log('user', JSON.stringify(this.userLogin)) ;
+          this.router.navigate(['home/' + this.userLogin.mail]);
           // this.router.navigate([this.returnUrl]);
         },
         error => {

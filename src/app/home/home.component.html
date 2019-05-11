@@ -1,4 +1,7 @@
 <div>
+  <div>
+    <button value="Déconnexion" (click)="deconnexion()" >déconnexion</button>
+  </div>
 <p-tabView [activeIndex]="index">
   <p-tabPanel header="Créer un sondage">
     <div id="corps">
@@ -192,7 +195,7 @@
           </ul> -->
           <button (click)="sauveParticipation()" >Terminer</button>
 
-          <button (click)="close()" >Quitter</button>
+          <button (click)="closePannel()" >Quitter</button>
         </ng-template>
       </p-table>
     </p-dialog>
